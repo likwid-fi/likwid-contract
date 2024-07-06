@@ -13,8 +13,13 @@ export default async (
     instance = await ethers.getContractAt('TokenMaster', (await deployments.get('TokenMaster')).address);
     console.log(`master(${instance.address})`);
 
-    const token = ethers.utils.parseEther('1');
-    console.log(`getAmountOut: ${await instance.getAmountOut(token,false)}`);
+    const token = ethers.utils.parseEther('123261.152');
+    const result = await instance.getAmountOut(token,false)
+    // result[0].add
+
+    const total = result[0].add(result[1]);
+    const totalF = ethers.utils.formatEther(total);
+    console.log(`getAmountOut: ${totalF}`);
     console.log(`claimDebitAmount(${await instance.claimDebitAmount()})`);
     console.log(`poolInitNative(${await instance.poolInitNative()})`);
     console.log(`poolInitSupply(${await instance.poolInitSupply()})`);
